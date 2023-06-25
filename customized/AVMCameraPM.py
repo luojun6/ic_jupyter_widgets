@@ -8,8 +8,8 @@ _logger = Logger(logger_name="AVMCameraPM", log_handler=logging_handler, logging
 
 
 class AVMCameraPM:
-    def __init__(self):
-        self.logger = _logger
+    def __init__(self, logger=_logger):
+        self.logger = logger
         self.__avm_cameras = AVMCameraSet()
         self.__power_select = Select(options=CAMERA_STATUS, 
                                      value=CAMERA_STATUS[0])
@@ -40,6 +40,7 @@ class AVMCameraPM:
         else:
             self.__avm_cameras.power_off_all()
             self.logger.error("[AVMCameraSet] is error!")
+            self.__avm_cameras.display_error_all()
     
             
         

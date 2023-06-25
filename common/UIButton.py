@@ -3,7 +3,7 @@ import ipywidgets as widgets
 from utils.loggers import Logger, OutputWidgetHandler
 
 logging_handler = OutputWidgetHandler()
-_logger = Logger(logger_name="UIButton", 
+_logger = Logger(logger_name=__file__, 
                  log_handler=logging_handler, 
                  logging_level=logging.DEBUG)
 
@@ -12,7 +12,7 @@ default_switch_values = ["invalid", "inactive", "active"]
 
 class UIButton(widgets.Button, widgets.ValueWidget):
     def __init__(self,
-                 name="UIButton", 
+                 name=__file__, 
                  values = default_switch_values,
                  default_value_index = 0,
                  internal_timer_callback=None,

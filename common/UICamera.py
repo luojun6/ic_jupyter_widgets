@@ -5,7 +5,7 @@ from common.UIButton import UIButton
 from utils.loggers import Logger, OutputWidgetHandler
 
 logging_handler = OutputWidgetHandler()
-_logger = Logger(logger_name="UICamera", 
+_logger = Logger(logger_name=__file__, 
                  log_handler=logging_handler, 
                  logging_level=logging.DEBUG)
 
@@ -19,7 +19,7 @@ STATUS_COLOR_MAP = {
 
 class UICamera(UIButton):
     def __init__(self, 
-                 name="UICamera", 
+                 name=__file__, 
                  values=CAMERA_STATUS, 
                  default_value_index=0, 
                  internal_timer_callback=None, 
@@ -38,6 +38,9 @@ class UICamera(UIButton):
         
     def power_off(self):
         self.set_value_index(0)
+
+    def display_error(self):
+        self.set_value_index(2)
         
     def __on_change_callback(self, change):
         self.button_style = STATUS_COLOR_MAP[self.value]
@@ -58,11 +61,16 @@ class AVMCameraSet:
         return self.__display
     
     def power_on_all(self):
-        self.logger.debug(f"[AVMCameraSet] power_on_all.")
+        self.logger.debug(f"{__file__}: [AVMCameraSet] power_on_all.")
         for cam in self.__cameras:
             cam.power_on()
             
     def power_off_all(self):
-        self.logger.debug(f"[AVMCameraSet] power_off_all.")
+        self.logger.debug(f"{__file__}: [AVMCameraSet] power_off_all.")
         for cam in self.__cameras:
             cam.power_off()
+
+    def display_error_all(self):
+        self.logger.debug(f"{__file__}: [AVMCameraSet] power_off_error!")
+        for cam in self.__cameras:
+            cam.display_error()
