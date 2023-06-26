@@ -39,7 +39,7 @@ class UICamera(UIButton):
     def power_off(self):
         self.set_value_index(0)
 
-    def display_error(self):
+    def show_error(self):
         self.set_value_index(2)
         
     def __on_change_callback(self, change):
@@ -54,11 +54,11 @@ class AVMCameraSet:
                             "rear_cam"]
         self.logger = _logger
         self.__cameras = [UICamera(name=cam) for cam in avm_camera_names]
-        self.__display = HBox(self.__cameras)
+        self.__show = HBox(self.__cameras)
         
         
-    def display(self):
-        return self.__display
+    def show(self):
+        return self.__show
     
     def power_on_all(self):
         self.logger.debug(f"{__file__}: [AVMCameraSet] power_on_all.")
@@ -70,7 +70,7 @@ class AVMCameraSet:
         for cam in self.__cameras:
             cam.power_off()
 
-    def display_error_all(self):
+    def show_error_all(self):
         self.logger.debug(f"{__file__}: [AVMCameraSet] power_off_error!")
         for cam in self.__cameras:
-            cam.display_error()
+            cam.show_error()
