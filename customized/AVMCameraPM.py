@@ -17,10 +17,10 @@ class AVMCameraPM:
         self.__select_label = Label()
         self.__power_control = VBox([self.__select_label, self.__power_select])
         
-        self.__display = VBox([self.__avm_cameras.display(), self.__power_control])
+        self.__show = VBox([self.__avm_cameras.show(), self.__power_control])
         
-    def display(self):
-        return self.__display
+    def show(self):
+        return self.__show
     
     def power_on(self):
         self.__power_select.value = CAMERA_STATUS[1]
@@ -40,7 +40,7 @@ class AVMCameraPM:
         else:
             self.__avm_cameras.power_off_all()
             self.logger.error("[AVMCameraSet] is error!")
-            self.__avm_cameras.display_error_all()
+            self.__avm_cameras.show_error_all()
     
             
         
