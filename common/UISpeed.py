@@ -26,10 +26,12 @@ class UISpeedSlider(widgets.IntSlider):
                  max=MAX_SPEED, 
                  step=DEFAULT_STEP, 
                  description="Speed",
+                 orientation='horizontal',
                  logger=_logger
                  ):
         super().__init__(value, min, max, step)
         self.description = description
+        self.orientation = orientation
         self.logger = logger
         self.observe(self.on_change_value_callback)
 

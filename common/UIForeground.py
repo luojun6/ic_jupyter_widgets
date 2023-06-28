@@ -1,6 +1,5 @@
 import os
 import logging
-from pydoc import describe
 from IPython.core.display import display
 import ipywidgets as widgets
 from utils.loggers import Logger, OutputWidgetHandler
@@ -19,16 +18,19 @@ def create_faked_home_page(image_file:str):
     image = open(image_path, "rb").read()
     return widgets.Image(
             value=image ,
-            format="jpg",
+            format=image_type,
             width=300,
             height=180,
             )
     
     
-class UISimpleForeground:
+class UISimpleForeground(widgets.ValueWidget):
+    HOME = "HOME"
+    AVM360 = "AVM360"
     
     def __init__(self, logger=_logger):
         self.logger = logger
+        self.value = self.HOME
         self.__out = widgets.Output(
             layout={
                 "border": "1px solid black", 
@@ -56,7 +58,7 @@ class UISimpleForeground:
             ])
         self.__avm360_page = widgets.VBox([
             create_faked_home_page("avm360_example.jpg"), 
-            self.__home_button, 
+            # self.__home_button, 
             self.__home_button])
         
         with self.__out:
@@ -70,12 +72,14 @@ class UISimpleForeground:
     def set_home_page(self):
         self.logger.debug(f"[{self.__class__.__name__}] set_home_page.")
         self.__out.clear_output()
+        self.value = self.HOME
         with self.__out:
             display(self.__home_page)
             
     def set_avm360_page(self):
         self.logger.debug(f"[{self.__class__.__name__}] set_avm360_page.")
         self.__out.clear_output()
+        self.value = self.AVM360
         with self.__out:
 
             # display(widgets.VBox([self.__avm360_page, self.__home_button, self.__home_button]))

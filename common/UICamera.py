@@ -47,13 +47,13 @@ class UICamera(UIButton):
         
 
 class AVMCameraSet:
-    def __init__(self):
+    def __init__(self, default_power_state=1):
         avm_camera_names = ["front_cam", 
                             "left_cam", 
                             "right_cam", 
                             "rear_cam"]
         self.logger = _logger
-        self.__cameras = [UICamera(name=cam) for cam in avm_camera_names]
+        self.__cameras = [UICamera(name=cam, default_value_index=default_power_state) for cam in avm_camera_names]
         self.__show = HBox(self.__cameras)
         
         
