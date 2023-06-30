@@ -49,9 +49,6 @@ class UISimpleForeground(widgets.ValueWidget):
             layout=widgets.Layout(width='50%', height='30px', margin="top")
         )
 
-        self.__home_button.on_click(self.__on_click_home_button)
-        self.__avm360_button.on_click(self.__on_click_avm360_button)
-
         self.__home_page = widgets.VBox([
             create_faked_home_page("ivi_home_example.jpg"), 
             self.__avm360_button
@@ -61,12 +58,22 @@ class UISimpleForeground(widgets.ValueWidget):
             # self.__home_button, 
             self.__home_button])
         
+        self.__on_click_home_button = None
+        self.__on_click_avm360_button = None
+        
         with self.__out:
             display(self.__home_page)
 
         self.logger.debug(f"[{self.__class__.__name__}] has been constructed.")
         
     def show(self):
+        if self.__on_click_home_button is None:
+            self.__on_click_home_button = self.__default_on_click_home_button
+        if self.__on_click_avm360_button is None:
+            self.__on_click_avm360_button = self.__default_on_click_avm360_button
+        
+        self.__home_button.on_click(self.__on_click_home_button)
+        self.__avm360_button.on_click(self.__on_click_avm360_button)
         return self.__out
     
     def set_home_page(self):
@@ -85,10 +92,16 @@ class UISimpleForeground(widgets.ValueWidget):
             # display(widgets.VBox([self.__avm360_page, self.__home_button, self.__home_button]))
             display(self.__avm360_page)
             
-    def __on_click_home_button(self, btn):
+    def set_on_click_home_button_callback(self, callback):
+        self.__on_click_home_button = callback
+        
+    def set_on_clink_avm360_button_callback(self, callback):
+        self.__on_click_avm360_button = callback
+            
+    def __default_on_click_home_button(self, btn):
         self.set_home_page()
         
-    def __on_click_avm360_button(self, btn):
+    def __default_on_click_avm360_button(self, btn):
         self.set_avm360_page()
 
     
