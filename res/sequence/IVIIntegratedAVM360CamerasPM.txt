@@ -29,6 +29,6 @@ group #lightblue close camera
 CarService->Avm360Service: speed > OPEN_SPEED
 Avm360Service->CameraService: open_cameras()
 CameraService->BSP: close(fd_camera_power)
-BSP->CameraPower: disbale
+BSP->CameraPower: enable
 activate CameraPower #C70039
 end 
