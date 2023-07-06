@@ -1,10 +1,10 @@
 import logging
 import ipywidgets as widgets
 from utils.loggers import Logger, OutputWidgetHandler
-from common.UIRadioButtons import UISDCard, UISavingEnergyMode
-from common.UIForeground import UISimpleForeground
-from common.UISpeed import UISpeedSlider
-from common.UICamera import MPDCameraSet
+from components.UIRadioButtons import UISDCard, UISavingEnergyMode
+from components.UIForeground import UISimpleForeground
+from components.UISpeed import UISpeedSlider
+from components.UICamera import MPDCameraSet
 from customized.AVMCameraPM import AVMCameraPM
 
 logging_handler = OutputWidgetHandler()
@@ -26,11 +26,11 @@ class IviAvmCamPM:
         self.__foreground = foreground
         self.__avm_cam_pm = avm_cam_pm
         self.__speed = speed
-        self.__speed_close_threshold = widgets.IntText(value=50, 
+        self.__speed_close_threshold = widgets.IntText(value=75, 
                                                        description="CLOSE_SPEED", 
                                                        disabled=True)
         self.__speed_open_threshold = widgets.Dropdown(options=['15', '25', '35'], 
-                                                       value='25', 
+                                                       value='35', 
                                                        description="OPEN_SPEED")
         self.__speed_control = widgets.VBox([self.__speed, 
                                              self.__speed_close_threshold, 
@@ -58,10 +58,11 @@ class IviAvmCamPM:
     
     def on_change_speed_callback(self, change):
         new_value = int(change["new"])
-        if new_value > int(self.__speed_close_threshold.value):
+        if new_value > int(self.__speed_open_threshold.value):
             if self.__foreground.value == self.__foreground.AVM360:
                 self.__foreground.set_home_page()
-            self.__avm_cam_pm.power_off()
+            if new_value > int(self.__speed_close_threshold.value):
+                self.__avm_cam_pm.power_off()
             
         elif new_value <= int(self.__speed_open_threshold.value):
             self.__avm_cam_pm.power_on()

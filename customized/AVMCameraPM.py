@@ -1,6 +1,6 @@
 import logging
 from ipywidgets import VBox, HBox, Label, Select, IntText
-from common.UICamera import AVMCameraSet, CAMERA_STATUS
+from components.UICamera import AVMCameraSet, CAMERA_STATUS
 from utils.loggers import Logger, OutputWidgetHandler
 
 logging_handler = OutputWidgetHandler()
@@ -10,7 +10,7 @@ _logger = Logger(logger_name=__file__,
 
 
 class AVMCameraPM:
-    def __init__(self, logger=_logger):
+    def __init__(self, logger=_logger, ):
         self.logger = logger
         self.__avm_cameras = AVMCameraSet()
         self.__power_select = Select(options=CAMERA_STATUS, 
