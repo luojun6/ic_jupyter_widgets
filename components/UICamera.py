@@ -29,7 +29,7 @@ class UICamera(UIButton):
         self.set_on_change_callback(self.__on_change_callback)
         self.value = self.values[self.value_index]
         # self.button_style = STATUS_COLOR_MAP[values[default_value_index]]
-        self.disabled = True
+        self.disabled = False
         self.icon = "camera"
         
         

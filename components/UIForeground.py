@@ -17,7 +17,7 @@ def create_faked_home_page(image_file:str):
     image_path = os.path.join(res_dir, "images", image_file)
     image = open(image_path, "rb").read()
     return widgets.Image(
-            value=image ,
+            value=image,
             format=image_type,
             width=300,
             height=180,
@@ -42,10 +42,14 @@ class UISimpleForeground(widgets.ValueWidget):
         #TODO: To be optimized by using Command Pattern
         self.__home_button = widgets.Button(
             description = "Home",
+            icon = "home",
+            button_style = "info",
             layout=widgets.Layout(width='50%', height='30px', margin="top")
         )
         self.__avm360_button = widgets.Button(
             description = "360",
+            icon = "camera",
+            button_style = "info",
             layout=widgets.Layout(width='50%', height='30px', margin="top")
         )
 

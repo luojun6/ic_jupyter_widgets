@@ -5,7 +5,7 @@ from components.UIRadioButtons import UISDCard, UISavingEnergyMode
 from components.UIForeground import UISimpleForeground
 from components.UISpeed import UISpeedSlider
 from components.UICamera import MPDCameraSet
-from customized.AVMCameraPM import AVMCameraPM
+from components.AVMCameraPM import AVMCameraPM
 
 logging_handler = OutputWidgetHandler()
 _logger = Logger(logger_name=__file__, 
@@ -112,6 +112,10 @@ class IviAvmCamPM:
     @property
     def speed_open_threshold(self):
         return self.__speed_open_threshold
+    
+    @property
+    def speed(self):
+        return self.__speed
     
 
 class IviAvmCamPM_DVR(IviAvmCamPM):
@@ -235,12 +239,22 @@ class IviAvmCamPM_Platform(widgets.Tab):
     
     
     def __init__(self, **kwargs):
+        
+        self.__avm = IviAvmCamPM()
+        self.__avm_dvr = IviAvmCamPM_DVR()
+        self.__avm_mpd = IviAvmCamPM_MPD()
+        
         super().__init__(
+            # children=[
+            #     IviAvmCamPM().display,
+            #     IviAvmCamPM_DVR().display,
+            #     IviAvmCamPM_MPD().display
+            # ], 
             children=[
-                IviAvmCamPM().display,
-                IviAvmCamPM_DVR().display,
-                IviAvmCamPM_MPD().display
-            ], 
+                self.__avm.display,
+                self.__avm_dvr.display,
+                self.__avm_mpd.display
+            ],
             **kwargs)
         [self.set_title(i, title) for i, title in enumerate(self.TABS)]
         
