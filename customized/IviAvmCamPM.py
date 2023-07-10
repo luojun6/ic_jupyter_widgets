@@ -27,11 +27,11 @@ class IviAvmCamPM:
         self.__avm_cam_pm = avm_cam_pm
         self.__speed = speed
         self.__speed_close_threshold = widgets.IntText(value=75, 
-                                                       description="CLOSE_SPEED", 
+                                                       description="CloseSpeed", 
                                                        disabled=True)
         self.__speed_open_threshold = widgets.Dropdown(options=['15', '25', '35'], 
                                                        value='35', 
-                                                       description="OPEN_SPEED")
+                                                       description="OpenSpeed")
         self.__speed_control = widgets.VBox([self.__speed, 
                                              self.__speed_close_threshold, 
                                              self.__speed_open_threshold])
