@@ -231,6 +231,10 @@ class IviAvmCamPM_MPD(IviAvmCamPM_DVR):
             self.avm_cam_pm.power_off()
         else:
             self.avm_cam_pm.power_on()
+            
+    @property
+    def energy_mode(self):
+        return self.__energy_mode
         
         
 

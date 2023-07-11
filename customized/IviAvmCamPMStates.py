@@ -1,7 +1,7 @@
 from common.AbstractState import State as StateButton
 from customized.IviAvmCamPM import IviAvmCamPM
 from utils.loggers import Logger
-from components.UIRadioButtons import UISDCard
+from components.UIRadioButtons import UISDCard, UISavingEnergyMode
 
 
 class State000_Init(StateButton):
@@ -132,3 +132,56 @@ class State105_DVR_InsertInOverSpeed(State000_Init):
         self.ivi_avm_pm.sd_card.value = UISDCard.SD_CARD_PLUGED
         self.ivi_avm_pm.speed.value = 100
         self.ivi_avm_pm.speed_open_threshold.value = '25'
+        
+        
+class State200_MPD_SuperECO_Init(State000_Init):
+    
+    def execute(self):
+        self.ivi_avm_pm.sd_card.value = UISDCard.SD_CARD_PLUGED
+        self.ivi_avm_pm.speed.value = 0
+        self.ivi_avm_pm.speed_open_threshold.value = '25'
+        self.ivi_avm_pm.energy_mode.value = UISavingEnergyMode.SUPER_ECO
+        
+        
+class State201_MPD_SuperECO_PluginOverSpeed(State000_Init):
+    
+    def execute(self):
+        self.ivi_avm_pm.sd_card.value = UISDCard.SD_CARD_PLUGED
+        self.ivi_avm_pm.speed.value = 120
+        self.ivi_avm_pm.speed_open_threshold.value = '25'
+        self.ivi_avm_pm.energy_mode.value = UISavingEnergyMode.SUPER_ECO
+        
+        
+class State202_MPD_SuperECO_PullOutOverSpeed(State000_Init):
+    
+    def execute(self):
+        self.ivi_avm_pm.sd_card.value = UISDCard.SD_CARD_NOT_PLUGED
+        self.ivi_avm_pm.speed.value = 120
+        self.ivi_avm_pm.speed_open_threshold.value = '25'
+        self.ivi_avm_pm.energy_mode.value = UISavingEnergyMode.SUPER_ECO
+
+class State203_MPD_SuperECO_NotPluginLowSpeed(State000_Init):
+    
+    def execute(self):
+        self.ivi_avm_pm.sd_card.value = UISDCard.SD_CARD_NOT_PLUGED
+        self.ivi_avm_pm.speed.value = 20
+        self.ivi_avm_pm.speed_open_threshold.value = '25'
+        self.ivi_avm_pm.energy_mode.value = UISavingEnergyMode.SUPER_ECO
+        
+
+class State204_MPD_SuperECO_NotPluginOverSpeed(State000_Init):
+    
+    def execute(self):
+        self.ivi_avm_pm.sd_card.value = UISDCard.SD_CARD_NOT_PLUGED
+        self.ivi_avm_pm.speed.value = 100
+        self.ivi_avm_pm.speed_open_threshold.value = '25'
+        self.ivi_avm_pm.energy_mode.value = UISavingEnergyMode.SUPER_ECO
+        
+        
+class State205_MPD_SuperECO_InsertInOverSpeed(State000_Init):
+    
+    def execute(self):
+        self.ivi_avm_pm.sd_card.value = UISDCard.SD_CARD_PLUGED
+        self.ivi_avm_pm.speed.value = 100
+        self.ivi_avm_pm.speed_open_threshold.value = '25'
+        self.ivi_avm_pm.energy_mode.value = UISavingEnergyMode.SUPER_ECO

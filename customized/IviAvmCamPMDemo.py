@@ -103,11 +103,21 @@ state_list_dvr_extended = [
     State101_DVR_PluginOverSpeed
 ]
 
+state_list_mpd_extended = [
+    State200_MPD_SuperECO_Init,
+    State201_MPD_SuperECO_PluginOverSpeed,
+    State202_MPD_SuperECO_PullOutOverSpeed,
+    State203_MPD_SuperECO_NotPluginLowSpeed,
+    State204_MPD_SuperECO_NotPluginOverSpeed,
+    State205_MPD_SuperECO_InsertInOverSpeed
+]
+
 
 state_list_dvr = state_list.copy() 
 state_list_dvr.extend(state_list_dvr_extended)
 
 state_list_mpd = state_list_dvr.copy()
+state_list_mpd.extend(state_list_mpd_extended)
 
 
 class IviAvmCamPMDemo_Platform(widgets.Tab):
