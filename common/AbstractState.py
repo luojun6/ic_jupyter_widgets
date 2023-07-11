@@ -16,6 +16,7 @@ class Context(ValueWidget):
     """
 
     def __init__(self, state: State) -> None:
+        self.__init_state = state
         self.transition_to(state)
         
         self.__next_button = Button(
@@ -30,7 +31,8 @@ class Context(ValueWidget):
             button_style="info",
             icon="power-off"
         )
-        self.__next_button.on_click(self.__on_click_reset_button)
+        self.__reset_button.on_click(self.__on_click_reset_button)
+        self.__on_click_reset_button_addtional_callback = None
 
     def transition_to(self, state: State):
         """
@@ -57,11 +59,17 @@ class Context(ValueWidget):
     def reset_button(self):
         return self.__reset_button
     
+    def set_on_click_reset_button_additional_callback(self, callback):
+        self.__on_click_reset_button_addtional_callback = callback
+    
     def __on_click_next_button(self, btn):
         self._state.handle_next_button_click()
         
     def __on_click_reset_button(self, btn):
-        self._state.handle_reset_button_click()
+        if self.__on_click_reset_button_addtional_callback:
+            self.__on_click_reset_button_addtional_callback()
+        self.__init_state.execute()
+        self.transition_to(self.__init_state)
     
     
 class State(ABC):
@@ -81,9 +89,13 @@ def context(self, context: Context) -> None:
     self._context = context
 
 @abstractmethod
-def handle_next_button_click(self) -> None:
+def execute(self) -> None:
     pass
 
 @abstractmethod
-def handle_reset_button_click(self) -> None:
+def handle_next_button_click(self) -> None:
     pass
+
+# @abstractmethod
+# def handle_reset_button_click(self) -> None:
+#     pass
