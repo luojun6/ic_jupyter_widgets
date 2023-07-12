@@ -1,4 +1,4 @@
-from __future__ import annotations
+# from __future__ import annotations
 from abc import ABC, abstractmethod
 from ipywidgets import Button, HBox, ValueWidget
 
@@ -15,7 +15,8 @@ class Context(ValueWidget):
     A reference to the current state of the Context.
     """
 
-    def __init__(self, state: State) -> None:
+    # def __init__(self, state: State) -> None:
+    def __init__(self, state) -> None:
         self.__init_state = state
         self.transition_to(state)
         
@@ -34,7 +35,8 @@ class Context(ValueWidget):
         self.__reset_button.on_click(self.__on_click_reset_button)
         self.__on_click_reset_button_addtional_callback = None
 
-    def transition_to(self, state: State):
+    # def transition_to(self, state: State):
+    def transition_to(self, state):
         """
         The Context allows changing the State object at runtime.
         """

@@ -39,7 +39,8 @@ class IviAvmCamPMDemo(widgets.VBox):
             layout={'border': '2px solid lightblue'}
             )
         
-        widgets.link((self.__context, 'value'), (self.__state_dropdown , 'value'))
+        # widgets.link((self.__context, 'value'), (self.__state_dropdown , 'value'))
+        self.__context.observe(self.__on_change_context, "value")
         
         
         super().__init__([self.__avm_pm.display, self.__state_hbox], **kwargs)
@@ -62,11 +63,8 @@ class IviAvmCamPMDemo(widgets.VBox):
         state_instance_list[-1].next_state = state_instance_list[0]          
         return state_instance_list
     
-    # def __on_change_context(self, change):
-    #     new_value = change["new"]
-    #     self.logger.debug(f"{__class__.__name__} context value changed to {new_value}.")
-    #     index = self.__state_name_list.index(new_value)
-    #     self.__context.transition_to(self.__state_list[index])
+    def __on_change_context(self, change):
+        self.__state_dropdown.value = change["new"]
 
     def __on_change_dropdown(self, change):
         new_value = change["new"]
