@@ -11,7 +11,7 @@ _logger = Logger(logger_name=__file__,
                  logging_level=logging.DEBUG)
 
         
-def create_faked_home_page(image_file:str):
+def create_forground_image(image_file:str):
     image_type = image_file.split(".")[-1]
     
     image_path = os.path.join(res_dir, "images", image_file)
@@ -54,11 +54,11 @@ class UISimpleForeground(widgets.ValueWidget):
         )
 
         self.__home_page = widgets.VBox([
-            create_faked_home_page("ivi_home_example.jpg"), 
+            create_forground_image("ivi_home_example.jpg"), 
             self.__avm360_button
             ])
         self.__avm360_page = widgets.VBox([
-            create_faked_home_page("avm360_example.jpg"), 
+            create_forground_image("avm360_example.jpg"), 
             # self.__home_button, 
             self.__home_button])
         

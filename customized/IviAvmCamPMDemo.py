@@ -4,7 +4,7 @@ import ipywidgets as widgets
 
 from common.AbstractState import Context as ContextButton
 from common.AbstractState import State as StateButton
-from customized.IviAvmCamPM import IviAvmCamPM, IviAvmCamPM_DVR, IviAvmCamPM_MPD
+from components.IviAvmCamPM import IviAvmCamPM, IviAvmCamPM_DVR, IviAvmCamPM_MPD
 from customized.IviAvmCamPMStates import *
 
 import logging
@@ -76,9 +76,6 @@ class IviAvmCamPMDemo(widgets.VBox):
         self.__context.transition_to(self.__state_instances[index])
         
         
-        
-
-        
 
 state_list = [
     State000_Init, 
@@ -137,3 +134,6 @@ class IviAvmCamPMDemo_Platform(widgets.Tab):
             ],
             **kwargs)
         [self.set_title(i, title) for i, title in enumerate(self.TABS)]
+        
+        
+ivi_avm_pm_demo = IviAvmCamPMDemo_Platform()

@@ -13,7 +13,6 @@ _logger = Logger(logger_name=__file__,
                  logging_level=logging.DEBUG)
 
 
-# TODO: To add forbidding to enter 360 in high speed
 class IviAvmCamPM:
     
     def __init__(self, 
