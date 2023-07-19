@@ -19,18 +19,14 @@ class Context(ValueWidget):
     def __init__(self, state) -> None:
         self.__init_state = state
         self.transition_to(state)
-        
+
         self.__next_button = Button(
-            description="NEXT",
-            button_style="info",
-            icon="arrow-right"
+            description="NEXT", button_style="info", icon="arrow-right"
         )
         self.__next_button.on_click(self.__on_click_next_button)
-        
+
         self.__reset_button = Button(
-            description="RESET",
-            button_style="info",
-            icon="power-off"
+            description="RESET", button_style="info", icon="power-off"
         )
         self.__reset_button.on_click(self.__on_click_reset_button)
         self.__on_click_reset_button_addtional_callback = None
@@ -48,32 +44,32 @@ class Context(ValueWidget):
     """
     The Context delegates part of its behavior to the current State object.
     """
-    
+
     @property
     def hbox_buttons(self):
         return HBox([self.__reset_button, self.__next_button])
-    
+
     @property
     def next_button(self):
         return self.__next_button
-    
+
     @property
     def reset_button(self):
         return self.__reset_button
-    
+
     def set_on_click_reset_button_additional_callback(self, callback):
         self.__on_click_reset_button_addtional_callback = callback
-    
+
     def __on_click_next_button(self, btn):
         self._state.handle_next_button_click()
-        
+
     def __on_click_reset_button(self, btn):
         if self.__on_click_reset_button_addtional_callback:
             self.__on_click_reset_button_addtional_callback()
         self.__init_state.execute()
         self.transition_to(self.__init_state)
-    
-    
+
+
 class State(ABC):
     """
     The base State class declares methods that all Concrete State should
@@ -82,22 +78,22 @@ class State(ABC):
     transition the Context to another State.
     """
 
-@property
-def context(self) -> Context:
-    return self._context
+    @property
+    def context(self) -> Context:
+        return self._context
 
-@context.setter
-def context(self, context: Context) -> None:
-    self._context = context
+    @context.setter
+    def context(self, context: Context) -> None:
+        self._context = context
 
-@abstractmethod
-def execute(self) -> None:
-    pass
+    @abstractmethod
+    def execute(self) -> None:
+        pass
 
-@abstractmethod
-def handle_next_button_click(self) -> None:
-    pass
+    @abstractmethod
+    def handle_next_button_click(self) -> None:
+        pass
 
-# @abstractmethod
-# def handle_reset_button_click(self) -> None:
-#     pass
+    # @abstractmethod
+    # def handle_reset_button_click(self) -> None:
+    #     pass
