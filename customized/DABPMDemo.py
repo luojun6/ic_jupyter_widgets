@@ -12,18 +12,18 @@ class DABPMDemo(Demonstrator):
 
 state_list = [
     State000_Init,
-    State001_EnterRadiosPage,
-    State002_RunDAB,
-    State003_BackToHome,
+    State001_EnterRadiosPageAtBeginning,
+    State002_RunDABAtBeginning,
+    State003_BackToHomenDABRunning,
     State004_EnterSettingPage,
     State005_TryToDisableDAB,
-    State003_BackToHome,
-    State001_EnterRadiosPage,
-    State006_StopDAB,
-    State003_BackToHome,
-    State004_EnterSettingPage,
-    State005_TryToDisableDAB,
-    State007_DABEnergySaving,
+    State006_BackToHomeOnDABRunning,
+    State007_EnterRadiosPagenDABRunning,
+    State008_StopDAB,
+    State009_DABEnergySavingPrompt,
+    State010_BackToHomeOnDABStopped,
+    State011_EnterRadiosPagenDABStopped,
+    State012_RunDABOnEnergySavingMode,
 ]
 
 dab_demo = DABPMDemo(demo_box=DABPM, state_list=state_list)

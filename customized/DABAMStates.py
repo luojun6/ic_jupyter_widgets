@@ -6,17 +6,17 @@ class State000_Init(DemoState):
         self.demo_box.reset()
 
 
-class State001_EnterRadiosPage(DemoState):
+class State001_EnterRadiosPageAtBeginning(DemoState):
     def execute(self):
         self.demo_box.set_radios_page()
 
 
-class State002_RunDAB(DemoState):
+class State002_RunDABAtBeginning(DemoState):
     def execute(self):
         self.demo_box.DAB.run()
 
 
-class State003_BackToHome(DemoState):
+class State003_BackToHomenDABRunning(DemoState):
     def execute(self):
         self.demo_box.set_home_page()
 
@@ -31,12 +31,22 @@ class State005_TryToDisableDAB(DemoState):
         self.demo_box.DAB.prompt("Try to disable DAB in [DAB setting].")
 
 
-class State006_StopDAB(DemoState):
+class State006_BackToHomeOnDABRunning(DemoState):
+    def execute(self):
+        self.demo_box.set_home_page()
+
+
+class State007_EnterRadiosPagenDABRunning(DemoState):
+    def execute(self):
+        self.demo_box.set_radios_page()
+
+
+class State008_StopDAB(DemoState):
     def execute(self):
         self.demo_box.DAB.stop()
 
 
-class State007_DABEnergySaving(DemoState):
+class State009_DABEnergySavingPrompt(DemoState):
     def execute(self):
         if (
             self.demo_box.DAB.enable_setting_button.value
@@ -49,3 +59,19 @@ class State007_DABEnergySaving(DemoState):
             self.demo_box.DAB.enable_setting_button.value = (
                 self.demo_box.DAB.DAB_DISABLED
             )
+
+
+class State010_BackToHomeOnDABStopped(DemoState):
+    def execute(self):
+        self.demo_box.set_home_page()
+
+
+class State011_EnterRadiosPagenDABStopped(DemoState):
+    def execute(self):
+        self.demo_box.set_radios_page()
+
+
+class State012_RunDABOnEnergySavingMode(DemoState):
+    def execute(self):
+        self.demo_box.DAB.run()
+        self.demo_box.DAB.prompt("Now it is exiting from [DAB Energy Saving Mode].")
