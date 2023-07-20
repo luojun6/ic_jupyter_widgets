@@ -106,3 +106,7 @@ class DABModule(widgets.VBox):
     @property
     def running_status(self):
         return self.__running_status
+
+    # @property
+    def prompt(self, message: str):
+        self.__prompt.prompt(message)

@@ -45,7 +45,7 @@ class DemoState(State):
 
 class Demonstrator(widgets.VBox):
     def __init__(self, demo_box: widgets.Box, state_list: Type[DemoState], **kwargs):
-        self.__demo_box = demo_box
+        self.__demo_box = demo_box()
         self.__state_list = state_list
         self.__state_name_list = [state.__name__ for state in self.__state_list]
         self.__state_instances = self.__construct_state_list_instances()

@@ -1,5 +1,6 @@
 import ipywidgets as widgets
 from IPython.core.display import display
+from common.UIPrompt import UIPrompt
 from components.Foreground import FORGROUND_PAGE_WIDTH, create_forground_image
 from components.DABModule import DABModule
 
@@ -41,13 +42,13 @@ class DABPM(widgets.HBox):
 
         self.__setting = widgets.Accordion(
             children=[
-                widgets.IntSlider(),
                 self.__DAB.enable_setting_button,
+                widgets.IntSlider(),
             ],
             # titles=("FakedSettingA", "FakedSettingB", "DAB Setting"),
             layout={"width": f"{FORGROUND_PAGE_WIDTH}px"},
         )
-        titles = ["FakedSetting", "DAB Setting"]
+        titles = ["DAB Setting", "FakedSetting"]
         [self.__setting.set_title(i, title) for i, title in enumerate(titles)]
 
         self.__setting_page = widgets.VBox([self.__setting, self.__home_button])
@@ -74,10 +75,37 @@ class DABPM(widgets.HBox):
         with self.__out:
             display(self.__home_page)
 
+        # self.__prompt = UIPrompt()
         super().__init__(
+            # [self.__out, widgets.VBox([self.__DAB, self.__prompt])],
             [self.__out, self.__DAB],
             **kwargs,
         )
+
+    # def prompt(self, message: str):
+    #     return self.__prompt.prompt(message)
+
+    def reset(self):
+        self.__init__()
+
+    def set_home_page(self):
+        self.__out.clear_output()
+        with self.__out:
+            display(self.__home_page)
+
+    def set_radios_page(self):
+        self.__out.clear_output()
+        with self.__out:
+            display(self.__radio_page)
+
+    def set_setting_page(self):
+        self.__out.clear_output()
+        with self.__out:
+            display(self.__setting_page)
+
+    @property
+    def DAB(self):
+        return self.__DAB
 
     def __on_click_DAB_button(self, btn):
         if self.__DAB.running_status:
@@ -90,25 +118,7 @@ class DABPM(widgets.HBox):
         self.set_home_page()
 
     def __on_click_radio_button(self, btn):
-        self.set_DAB_page()
+        self.set_radios_page()
 
     def __on_click_setting_button(self, btn):
         self.set_setting_page()
-
-    def reset(self):
-        self.__init__()
-
-    def set_home_page(self):
-        self.__out.clear_output()
-        with self.__out:
-            display(self.__home_page)
-
-    def set_DAB_page(self):
-        self.__out.clear_output()
-        with self.__out:
-            display(self.__radio_page)
-
-    def set_setting_page(self):
-        self.__out.clear_output()
-        with self.__out:
-            display(self.__setting_page)
