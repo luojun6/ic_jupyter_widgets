@@ -1,6 +1,7 @@
 import ipywidgets as widgets
 from IPython.core.display import display
-from common.UIPrompt import UIPrompt
+
+# from common.UIPrompt import UIPrompt
 from components.Foreground import FORGROUND_PAGE_WIDTH, create_forground_image
 from components.DABModule import DABModule
 

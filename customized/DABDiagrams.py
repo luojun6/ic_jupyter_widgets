@@ -3,9 +3,11 @@ from utils.files_mgmt import res_dir
 
 import os
 
+DAB_THEORY = "DAB Basic Theory"
 DAB_HARDWARE_BLOCK_Diagram = "DAB Hardware Block Diagram"
 
 DIAGRAMS_DICT = {
+    DAB_THEORY: os.path.join(res_dir, "images/DAB_example.jpg"),
     DAB_HARDWARE_BLOCK_Diagram: os.path.join(res_dir, "images/DAB_HW.drawio.png"),
 }
 

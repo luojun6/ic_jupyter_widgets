@@ -14,7 +14,7 @@ class DABModule(widgets.VBox):
 
         self.__enabler = widgets.ToggleButton(
             value=True,
-            description="Digital Audio Boardcasting",
+            description="Digital Audio Boardcasting Module",
             layout={"width": "300px", "height": "60px"},
             icon="radio",
             button_style="warning",

@@ -95,6 +95,7 @@ state_list = [
     State002_LowSpeedReopen,
     State003_EnterAVM360,
     State004_OverSpeedCloseIn360Page,
+    State005_SetIn25kmhOnLowSpeed,
     State006_OverSpeedCloseSetIn25kmh,
     State007_LowSpeedReopenSetIn25kmh,
     State008_OverSpeedCloseSetIn15kmh,

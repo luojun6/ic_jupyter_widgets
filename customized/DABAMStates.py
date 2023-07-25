@@ -43,9 +43,16 @@ class State007_EnterRadiosPagenDABRunning(DemoState):
 
 class State008_StopDAB(DemoState):
     def execute(self):
+        self.demo_box.DAB.set_setting_page()
+
+
+class State009_DisableOnDAPStopped(DemoState):
+    def execute(self):
         self.demo_box.DAB.stop()
+        self.demo_box.DAB.enable_setting_button.value = self.demo_box.DAB.DAB_DISABLED
 
 
+# Not used
 class State009_DABEnergySavingPrompt(DemoState):
     def execute(self):
         if (

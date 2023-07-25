@@ -64,9 +64,14 @@ class State004_OverSpeedCloseIn360Page(State000_Init):
         self.ivi_avm_pm.speed.value = 100
 
 
+class State005_SetIn25kmhOnLowSpeed(State000_Init):
+    def execute(self):
+        self.ivi_avm_pm.speed.value = 12
+        self.ivi_avm_pm.speed_open_threshold.value = "25"
+
+
 class State006_OverSpeedCloseSetIn25kmh(State000_Init):
     def execute(self):
-        self.ivi_avm_pm.speed_open_threshold.value = "25"
         self.ivi_avm_pm.speed.value = 75
 
 
