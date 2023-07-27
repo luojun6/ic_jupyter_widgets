@@ -14,6 +14,12 @@ JUPYTER_HTML = """
 .screen_off{
     background-color:black;
 }
+.font_color_day{
+    color: blue;
+}
+.font_color_night{
+    color: yellow;
+}
 .theme_day{
     background-color:#F9F9F9;
 }
@@ -26,7 +32,7 @@ JUPYTER_HTML = """
 
 class GeneralDisplay(widgets.HBox):
     WIDTH = "50%"
-    HEIGHT = "160px"
+    HEIGHT = "200px"
     SCREEN_OFF = "screen_off"
     THEME_NIGHT = "theme_night"
     THEME_DAY = "theme_day"
@@ -46,6 +52,13 @@ class GeneralDisplay(widgets.HBox):
         userdb_path=DEAFAULT_GENERAL_USERDB_PATH,
         **kwargs
     ):
+        self.layout = widgets.Layout(
+            width=self.WIDTH,
+            height=self.HEIGHT,
+            border="solid",
+            justify_content="center",
+            align_items="center",
+        )
         self.__power_up_duration = power_up_duration
         self.__power_up_event = threading.Event()
         self.__power_up_timer = threading.Timer(
@@ -105,9 +118,12 @@ class GeneralDisplay(widgets.HBox):
         self.__background = background
         self.add_class(self.__background)
 
+    def power_off(self):
+        self.__init__()
+
     # Ready to override
     def start_up(self):
-        self.html = "<h3>System is starting up....</h3>"
+        self.html = "<h3 style='font-weight:bold'>System is starting up....</h3>"
         with self.__forground:
             display(self.__html)
         self.__start_up_timer.start()
@@ -146,19 +162,23 @@ class GeneralDisplay(widgets.HBox):
 
 class DriverDisplay(GeneralDisplay):
     def __init__(self, **kwargs):
-        self.layout = widgets.Layout(
-            justify_content="space-around",
-            width=self.WIDTH,
-            height=self.HEIGHT,
-            border="solid",
-            align_items="center",
-        )
+        # self.layout = widgets.Layout(
+        #     # justify_content="space-around",
+        #     width=self.WIDTH,
+        #     height=self.HEIGHT,
+        #     border="solid",
+        #     align_items="center",
+        # )
         self.__left_display = widgets.Output()
         # self.__central_display = widgets.Output()
         self.__right_display = widgets.Output()
 
         super().__init__(**kwargs)
         self.children = [self.__left_display, self.forground, self.__right_display]
+
+    def start_up_callback(self):
+        self.layout.justify_content = "space-around"
+        return super().start_up_callback()
 
 
 class DockButton(widgets.Button):
@@ -171,22 +191,26 @@ class DockButton(widgets.Button):
 
 class CentralDisplay(GeneralDisplay):
     def __init__(self, **kwargs):
-        self.layout = widgets.Layout(
-            justify_content="flex-start",
-            width=self.WIDTH,
-            height=self.HEIGHT,
-            border="solid",
-            align_items="center",
-        )
+        super().__init__(**kwargs)
+
+        # self.layout = widgets.Layout(
+        #     # justify_content="flex-start",
+        #     width=self.WIDTH,
+        #     height=self.HEIGHT,
+        #     border="solid",
+        #     align_items="center",
+        # )
         self.__home_button = DockButton(icon="home")
+        self.__music_button = DockButton(icon="music")
         self.__setting_button = DockButton(icon="gear")
         self.__car_button = DockButton(icon="car")
         self.__bars_button = DockButton(icon="bars")
         self.__dock_buttons = widgets.VBox(
             [
                 self.__home_button,
-                self.__setting_button,
+                self.__music_button,
                 self.__car_button,
+                self.__setting_button,
                 self.__bars_button,
             ]
         )
@@ -195,10 +219,38 @@ class CentralDisplay(GeneralDisplay):
         self.__dock = widgets.Output()
         # self.__forground = widgets.Output()
 
-        super().__init__(**kwargs)
         self.children = [self.__dock, self.forground]
 
+    @property
+    def home_button(self):
+        return self.__home_button
+
+    @property
+    def music_button(self):
+        return self.__music_button
+
+    @property
+    def setting_button(self):
+        return self.__setting_button
+
+    @property
+    def car_button(self):
+        return self.__car_button
+
+    @property
+    def bars_button(self):
+        return self.__bars_button
+
+    @property
+    def dock_buttons(self):
+        return self.__dock_buttons
+
+    @property
+    def dock_output(self):
+        return self.__dock
+
     def start_up_callback(self):
+        self.layout.justify_content = "flex-start"
         with self.__dock:
             display(self.__dock_buttons)
 
@@ -235,3 +287,8 @@ class DualDisplay(widgets.HBox):
     def power_up(self):
         self.__driver_display.power_up()
         self.__central_display.power_up()
+        # for child in self.children:
+        #     child.power_up()
+
+    def power_off(self):
+        self.__init__()
