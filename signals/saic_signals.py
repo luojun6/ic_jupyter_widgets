@@ -1,6 +1,7 @@
 import sys, inspect
 
 from signals.enum_signals import EnumSignal
+from signals.int_signals import SpeedSlider
 
 
 def get_class_by_name(class_name: str) -> EnumSignal:
@@ -14,6 +15,10 @@ def collect_classes() -> dict:
             all_signals[name] = obj
 
     return all_signals
+
+
+class VehSpdAvgDrvn(SpeedSlider):
+    pass
 
 
 class SysPwrMd(EnumSignal):

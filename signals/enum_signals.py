@@ -6,8 +6,8 @@ from common.UISignal import UISignalEnum
 
 class EnumSignal(Enum):
     @classmethod
-    @property
-    def option_tuples(cls):
+    # @property
+    def get_option_tuples(cls):
         if len(cls) == 0:
             raise ValueError(f"{cls.__name__} is an empty signal!!!")
 
@@ -35,7 +35,7 @@ class EnhancedUISignalEnum(UISignalEnum):
             initial_value=initial_value,
             select_widget_type=select_widget_type,
             disabled=disabled,
-            tuples_option=self.__signal.option_tuples,
+            tuples_option=self.__signal.get_option_tuples(),
         )
 
     @property
